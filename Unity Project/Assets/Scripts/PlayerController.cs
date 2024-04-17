@@ -6,11 +6,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     float movement = 1f;
-    
+    bool canDash = true;
+
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
         {
             gameObject.transform.Translate(-movement * Time.deltaTime, 0, 0);
             gameObject.GetComponent<Animator>().SetBool("moving", true);
-            gameObject.GetComponent<SpriteRenderer>().flipX=true;
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
         }
         if (Input.GetKey("right"))
         {
@@ -39,20 +39,28 @@ public class PlayerController : MonoBehaviour
             gameObject.GetComponent<Animator>().SetBool("moving", true);
         }
 
-        if(!Input.GetKey("left") && !Input.GetKey("right") && !Input.GetKey("up") && !Input.GetKey("down"))
+        if (!Input.GetKey("left") && !Input.GetKey("right") && !Input.GetKey("up") && !Input.GetKey("down"))
         {
             gameObject.GetComponent<Animator>().SetBool("moving", false);
         }
 
-        if (Input.GetKey("space"))
+        if (Input.GetKey("space") && canDash == true)
         {
-            movement = 2f;
-            gameObject.GetComponent<Animator>().SetBool("dash", true);
+            StartCoroutine(Dash());
+            Dash();
         }
-        else
-        {
-            movement = 1f;
-            gameObject.GetComponent<Animator>().SetBool("dash", false);
-        }
+    }
+    IEnumerator Dash()
+    {
+        movement = 2f;
+        gameObject.GetComponent<Animator>().SetBool("dash", true);
+
+        yield return new WaitForSeconds(0.7f);
+        movement = 1f;
+        gameObject.GetComponent<Animator>().SetBool("dash", false);
+
+        canDash = false;
+        yield return new WaitForSeconds(1f);
+        canDash = true;
     }
 }
