@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 558360847}
   - component: {fileID: 558360846}
   m_Layer: 0
-  m_Name: Warrior_SheetnoEffect_19
+  m_Name: Location Reference
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
