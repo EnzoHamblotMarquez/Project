@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    float movementMultiplier = 1f;
-    bool canDash = true;
-    int dashCooldown = 1000; //+700
+    public float movementMultiplier = 5f;
+    private bool canDash = true;
+    public int dashCooldown = 1000; //+700
 
     // Start is called before the first frame update
     void Start()
@@ -19,10 +19,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Input.GetAxis("Horizontal"));
-        Debug.Log(Input.GetAxis("Vertical"));
+        transform.rotation = Quaternion.identity; //Avoid player rotation
 
-        gameObject.transform.Translate(Input.GetAxis("Horizontal") * movementMultiplier * Time.deltaTime, 0, 0);
+        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0).normalized; //Take player's input
+
+        gameObject.transform.Translate(movement * movementMultiplier * Time.deltaTime);
 
         if (Input.GetAxis("Horizontal") < 0)
         {
@@ -33,7 +34,6 @@ public class PlayerController : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
 
-        gameObject.transform.Translate(0, Input.GetAxis("Vertical") * movementMultiplier * Time.deltaTime, 0);
 
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
@@ -53,11 +53,11 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator Dash()
     {
-        movementMultiplier = 2f;
+        movementMultiplier = 1.5f * movementMultiplier;
         gameObject.GetComponent<Animator>().SetBool("dash", true);
 
         yield return new WaitForSeconds(0.7f);
-        movementMultiplier = 1f;
+        movementMultiplier = movementMultiplier / 1.5f;
         gameObject.GetComponent<Animator>().SetBool("dash", false);
     }
 
