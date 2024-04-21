@@ -18,7 +18,7 @@ public class RoomSpawner : MonoBehaviour
     private int left = 2;
     private int right = 3;
 
-    public static int openRooms = 0;
+    public static int rooms = 0;
     public static int maxOpenRooms = 4;
 
     private RoomTemplates roomTemplates;
@@ -38,7 +38,7 @@ public class RoomSpawner : MonoBehaviour
             if (openingDirection == bottom)
             {
                 //Spawn a room with a bottom door 
-                if (openRooms >= maxOpenRooms - 1)
+                if (rooms >= maxOpenRooms - 1)
                 {
                     index = bottom;
                 }
@@ -52,7 +52,7 @@ public class RoomSpawner : MonoBehaviour
             else if (openingDirection == top)
             {
                 //Spawn a room with a top door 
-                if (openRooms >= maxOpenRooms - 1)
+                if (rooms >= maxOpenRooms - 1)
                 {
                     index = top;
                 }
@@ -66,7 +66,7 @@ public class RoomSpawner : MonoBehaviour
             else if (openingDirection == left)
             {
                 //Spawn a room with a left door
-                if (openRooms >= maxOpenRooms - 1)
+                if (rooms >= maxOpenRooms - 1)
                 {
                     index = left;
                 }
@@ -80,7 +80,7 @@ public class RoomSpawner : MonoBehaviour
             else if (openingDirection == right)
             {
                 //Spawn a room with a right door 
-                if (openRooms >= maxOpenRooms - 1)
+                if (rooms >= maxOpenRooms - 1)
                 {
                     index = right;
                 }
@@ -92,7 +92,7 @@ public class RoomSpawner : MonoBehaviour
                 Instantiate(roomTemplates.rightRooms[index], transform.position, Quaternion.identity);
             }
             spawned = true;
-            openRooms++;
+            rooms++;
         }
     }
 
