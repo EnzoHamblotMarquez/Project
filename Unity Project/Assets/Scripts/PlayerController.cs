@@ -6,33 +6,39 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float movementMultiplier = 5f;
+    public float NormalSpeed = 5f;
+    public float DashSpeed = 6.5f;
+
+    private float CurrentSpeed = 5f;
     private bool canDash = true;
+    private Vector2 CurrentInputedDirection;
+    private Rigidbody2D m_rigidbody2D;
     public int dashCooldown = 1000; //+700
 
     // Start is called before the first frame update
     void Start()
     {
-
+        m_rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = Quaternion.identity; //Avoid player rotation
+        //transform.rotation = Quaternion.identity; //Avoid player rotation
 
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0).normalized; //Take player's input
+        CurrentInputedDirection = Vector2.right * Input.GetAxis("Horizontal") + Vector2.up * Input.GetAxis("Vertical"); //Take player's input
+        CurrentInputedDirection.Normalize();
 
-        gameObject.transform.Translate(movement * movementMultiplier * Time.deltaTime);
-
-        if (Input.GetAxis("Horizontal") < 0)
+        /*if (Input.GetAxis("Horizontal") < 0)
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
         }
         if (Input.GetAxis("Horizontal") > 0)
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
-        }
+        }*/
+
+        gameObject.GetComponent<SpriteRenderer>().flipX = Input.GetAxis("Horizontal") < 0? true: false;
 
 
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
@@ -51,13 +57,18 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+    private void FixedUpdate()
+    {
+        m_rigidbody2D.MovePosition(m_rigidbody2D.position + CurrentInputedDirection * CurrentSpeed * Time.fixedDeltaTime);
+    }
     IEnumerator Dash()
     {
-        movementMultiplier = 1.5f * movementMultiplier;
+        CurrentSpeed = DashSpeed;
         gameObject.GetComponent<Animator>().SetBool("dash", true);
 
         yield return new WaitForSeconds(0.7f);
-        movementMultiplier = movementMultiplier / 1.5f;
+        CurrentSpeed = NormalSpeed;
         gameObject.GetComponent<Animator>().SetBool("dash", false);
     }
 

@@ -329,7 +329,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e43b82870ffcf041b78855058dd6948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementMultiplier: 5
+  NormalSpeed: 5
+  DashSpeed: 6.5
   dashCooldown: 1000
 --- !u!95 &964805550
 Animator:
@@ -423,7 +424,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1001 &1039842496
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -480,8 +481,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedComponents:
+    - {fileID: 8530609722068775275, guid: 22579142605c70042874bc5eabf865c7, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 4363117245428646650, guid: 22579142605c70042874bc5eabf865c7, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22579142605c70042874bc5eabf865c7, type: 3}

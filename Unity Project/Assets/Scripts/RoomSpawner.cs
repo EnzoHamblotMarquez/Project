@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -96,13 +97,16 @@ public class RoomSpawner : MonoBehaviour
         }
     }
 
-    async private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("SpawnPoint"))
         {
+            if (collision.gameObject.transform.position == new Vector3 (0, 0, 0))
+            {
+                Destroy(gameObject);
+            }
             if (collision.GetComponent<RoomSpawner>().spawned == false && spawned == false)
             {
-                await Task.Delay(100);
                 Instantiate(roomTemplates.closedRoom, transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
