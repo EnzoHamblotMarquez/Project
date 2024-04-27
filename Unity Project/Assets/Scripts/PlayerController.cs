@@ -38,7 +38,6 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetAxis("Horizontal") > 0)
         {
-<<<<<<< Updated upstream
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
 
@@ -49,9 +48,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             gameObject.GetComponent<Animator>().SetBool("moving", false);
-=======
             m_spriteRenderer.flipX = false;
->>>>>>> Stashed changes
         }
 
         animator.SetBool("moving", Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0);
