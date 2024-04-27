@@ -98,9 +98,19 @@ public class RoomSpawner : MonoBehaviour
 
     async private void OnTriggerEnter2D(Collider2D collision)
     {
+        Vector3 localSpawnPointPosition = transform.position;
+        Vector3 globalSpawnPointPosition = transform.TransformPoint(localSpawnPointPosition);
         if (collision.CompareTag("SpawnPoint"))
         {
+<<<<<<< Updated upstream
             if (collision.GetComponent<RoomSpawner>().spawned == false && spawned == false)
+=======
+            if (globalSpawnPointPosition == new Vector3 (0, 0, 0))
+            {
+                Destroy(gameObject);
+            }
+            else if (collision.GetComponent<RoomSpawner>().spawned == false && spawned == false)
+>>>>>>> Stashed changes
             {
                 await Task.Delay(100);
                 Instantiate(roomTemplates.closedRoom, transform.position, Quaternion.identity);
