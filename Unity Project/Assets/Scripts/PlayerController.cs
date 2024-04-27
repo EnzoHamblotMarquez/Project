@@ -29,17 +29,14 @@ public class PlayerController : MonoBehaviour
         CurrentInputedDirection = Vector2.right * Input.GetAxis("Horizontal") + Vector2.up * Input.GetAxis("Vertical"); //Take player's input
         CurrentInputedDirection.Normalize();
 
-        /*if (Input.GetAxis("Horizontal") < 0)
+        if (Input.GetAxis("Horizontal") < 0)
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
         }
         if (Input.GetAxis("Horizontal") > 0)
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
-        }*/
-
-        gameObject.GetComponent<SpriteRenderer>().flipX = Input.GetAxis("Horizontal") < 0? true: false;
-
+        }
 
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
