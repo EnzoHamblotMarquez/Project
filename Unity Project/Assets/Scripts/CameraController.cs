@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    float smoothTime = 0.25f;
+    public float smoothTime;
     Vector3 velocity = Vector3.zero;
     [SerializeField] Transform player;
 
@@ -16,7 +16,7 @@ public class CameraController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Vector3 playerPosition = player.transform.position;
         Vector3 cameraPosition = transform.position;
